@@ -1,0 +1,27 @@
+.mainh{
+    background-color: black;
+    color: silver;
+    font-size: 70px;
+}
+.bg{
+    background-image: url(https://clipart-db.ru/file_content/rastr/background_065.jpg);
+    background-position: center;
+    color: darkslategray;
+    
+}
+
+.title{
+    border-style: solid;
+    border:"height:500px; width:1400px";
+    border-radius: 3px;
+    background-color: silver;
+}
+
+.form-check-label{
+
+    color: silver;
+}
+
+#header{
+    color: wheat;
+}
