@@ -1,38 +1,55 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TasklistService } from './task-list.service';
-import { ITaskList, ITasks } from '../models/models';
+import {MainService} from './main.service';
+import {HttpClient} from '@angular/common/http';
+import { ITaskList, ITask, IAuthResponse } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProviderService extends TasklistService{
+export class ProviderService extends MainService {
 
-  constructor(http:HttpClient){
-    super(http);  
+  constructor(http: HttpClient) {
+    super(http);
   }
 
-  getTaskList():Promise<ITaskList[]>{
-     return this.get('http://127.0.0.1:8000/api/tasklists/', {});
+  getTaskLists(): Promise<ITaskList[]> {
+    return this.get('http://localhost:8000/api/task_lists', {});
   }
 
-  getTasks(tasklist: ITaskList): Promise<ITasks[]> {
-    return this.get(`http://127.0.0.1:8000/api/tasklists/${tasklist.id}/tasks/`, {});
+  getTasks(taskList: ITaskList): Promise<ITask[]> {
+    return this.get(`http://localhost:8000/api/task_lists/${taskList.id}/tasks`, {});
   }
 
-  createTaskList(name:any):Promise<ITaskList>{
-    return this.post('http://localhost:8000/api/tasklists/',{
-      name:name
+  createTaskList(name: any): Promise<ITaskList> {
+    return this.post('http://localhost:8000/api/task_lists', {
+      name: name
     });
   }
 
-  updateTaskList(tasklist: ITaskList): Promise<ITaskList> {
-    return this.put(`http://localhost:8000/api/tasklists/${tasklist.id}/`, {
-      name: tasklist.name
+  updateTaskList(taskList: ITaskList): Promise<ITaskList> {
+    return this.put(`http://localhost:8000/api/task_lists/${taskList.id}`, {
+      name: taskList.name
     });
   }
 
   deleteTaskList(id: number): Promise<any> {
-    return this.delet(`http://localhost:8000/api/tasklists/${id}/`, {});
+    return this.delet(`http://localhost:8000/api/task_lists/${id}`, {});
+  }
+
+  createTask(taskListId: number, name: any): Promise<ITask> {
+    return this.post(`http://localhost:8000/api/task_lists/${taskListId}/tasks`, {
+      name: name
+    });
+  }
+
+  auth(login: string, password: string): Promise<IAuthResponse> {
+    return this.post('http://localhost:8000/api/login', {
+      username: login,
+      password: password
+    });
+  }
+
+  logout(): Promise<any> {
+    return this.post('http://localhost:8000/api/logout', {});
   }
 }

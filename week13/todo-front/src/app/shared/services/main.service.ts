@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable()
-export class TasklistService {
+export class MainService {
 
   constructor(protected http: HttpClient) {
   }
@@ -58,6 +58,5 @@ export class TasklistService {
     }
     return params;
   }
-
 
 }
